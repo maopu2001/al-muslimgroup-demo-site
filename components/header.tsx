@@ -16,22 +16,13 @@ const productsMenuItems = [
   { label: "Men", href: "/products#men" },
   { label: "Women", href: "/products#women" },
   { label: "Kids", href: "/products#kids" },
-  { label: "Test", href: "/products#test" },
-];
-
-const galleryMenuItems = [
-  { label: "Event Photos", href: "/gallery#event-photos" },
-  { label: "Videos", href: "/gallery#videos" },
-  { label: "Instagram", href: "/gallery#instagram" },
-  { label: "Awards", href: "/gallery#awards" },
 ];
 
 const menuItems = [
   { label: "About Us", href: "/about", subItems: aboutMenuItems },
   { label: "Products", href: "/products", subItems: productsMenuItems },
-  { label: "CSR", href: "/csr" },
   { label: "Sustainability", href: "/sustainability" },
-  { label: "Gallery", href: "/gallery", subItems: galleryMenuItems },
+  { label: "Gallery", href: "/gallery" },
   { label: "Contact", href: "/contact" },
 ];
 
@@ -44,7 +35,7 @@ export default function Header() {
       <div className="space-x-2">
         {menuItems.map((item) => (
           <Button
-            className="p-2 hover:bg-accent/20"
+            className="p-0 hover:bg-accent/20"
             variant="ghost"
             key={item.href}
           >
@@ -52,7 +43,11 @@ export default function Header() {
               <div>
                 <TooltipMenu item={item} />
               </div>
-            )) || <Link href={item.href}>{item.label.toUpperCase()}</Link>}
+            )) || (
+              <Link className="p-2" href={item.href}>
+                {item.label.toUpperCase()}
+              </Link>
+            )}
           </Button>
         ))}
         <ThemeSwitcher />
@@ -64,7 +59,7 @@ export default function Header() {
 function TooltipMenu({ item }: { item: (typeof menuItems)[1] }) {
   return (
     <Tooltip>
-      <TooltipTrigger asChild className="cursor-pointer">
+      <TooltipTrigger asChild className="cursor-pointer p-2">
         <Link href={item.href}>{item.label.toUpperCase()}</Link>
       </TooltipTrigger>
       <TooltipContent
