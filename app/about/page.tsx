@@ -1,5 +1,4 @@
 import Machineries from "@/components/machineries";
-import PdfRenderer from "@/components/pdf-renderer";
 import { Button } from "@/components/ui/button";
 import { Download, QuoteDownIcon } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
@@ -147,11 +146,13 @@ export default function Page() {
                 key={it}
                 href={`/certificates/${it + 1}.pdf`}
                 target="_blank"
-                className="w-full aspect-square overflow-hidden border rounded-lg shadow-lg hover:scale-105 transition-all duration-300 cursor-pointer"
+                className="w-full aspect-square overflow-hidden border rounded-lg shadow-lg hover:scale-105 transition-all duration-300 cursor-pointer bg-white relative"
               >
-                <PdfRenderer
-                  url={`/certificates/${it + 1}.pdf`}
-                  className="w-full"
+                <Image
+                  src={`/certificates/${it + 1}.jpeg`}
+                  alt={`Certificate ${it + 1}`}
+                  fill
+                  className="object-contain"
                 />
               </Link>
             ))}

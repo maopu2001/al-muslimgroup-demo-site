@@ -33,7 +33,12 @@ export default function HeroSection() {
           {[1, 2, 3].map((num) => (
             <CarouselItem key={num}>
               <div className="w-full h-lvh flex items-center justify-center bg-gray-200 object-cover relative">
-                <Image src={`/hero/hero${num}.jpg`} alt={`Image ${num}`} fill />
+                <Image
+                  src={`/hero/hero${num}.jpg`}
+                  alt={`Image ${num}`}
+                  fill
+                  priority
+                />
               </div>
             </CarouselItem>
           ))}

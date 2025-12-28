@@ -30,7 +30,7 @@ export default function Header() {
   return (
     <header className="fixed top-0 left-0 bg-background/80 backdrop-blur-md right-0 z-50 px-10 py-2 flex items-center justify-between border-b h-12">
       <Link href="/">
-        <Image src="/logo1.png" alt="Logo" width={240} height={80} />
+        <Image src="/logo1.png" alt="Logo" width={240} height={80} priority />
       </Link>
       <div className="space-x-2">
         {menuItems.map((item) => (
