@@ -132,11 +132,6 @@ export default function Footer() {
           </ul>
         </div>
       </div>
-
-      <div className="col-span-5 border-t py-2">
-        Copyright &copy; {new Date().getFullYear()} Al-Muslim Group. All rights
-        reserved.
-      </div>
     </footer>
   );
 }

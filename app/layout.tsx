@@ -3,7 +3,7 @@ import { Geist, Geist_Mono, Noto_Sans } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/header";
 import { ThemeProvider } from "@/components/theme-provider";
-import Footer from "@/components/footer";
+import { Toaster } from "sonner";
 
 const notoSans = Noto_Sans({ variable: "--font-sans" });
 
@@ -39,8 +39,8 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           <Header />
-          <main className="mt-12 min-h-lvh">{children}</main>
-          <Footer />
+          {children}
+          <Toaster closeButton richColors position="bottom-right" />
         </ThemeProvider>
       </body>
     </html>

@@ -58,6 +58,7 @@ export default function Page() {
                   alt={it.title}
                   fill
                   className="object-contain"
+                  priority
                 />
               </div>
               <div className="text-lg font-semibold flex justify-center items-center border uppercase text-center px-2">

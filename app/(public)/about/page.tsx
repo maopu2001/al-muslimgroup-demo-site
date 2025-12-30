@@ -48,7 +48,12 @@ export default function Page() {
             </p>
           </div>
           <div className="relative m-auto w-full object-cover rounded-lg overflow-hidden h-100 hover:scale-105 transition-all duration-300 cursor-pointer">
-            <Image src="/company-profile/image.png" alt="Company" fill />
+            <Image
+              src="/company-profile/image.png"
+              alt="Company"
+              fill
+              priority
+            />
           </div>
         </div>
         <Link

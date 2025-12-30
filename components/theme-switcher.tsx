@@ -7,7 +7,6 @@ import { HugeiconsIcon } from "@hugeicons/react";
 
 export function ThemeSwitcher() {
   const { setTheme, theme } = useTheme();
-  console.log("Current theme:", theme);
 
   switch (theme) {
     case "light":

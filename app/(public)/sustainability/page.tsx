@@ -71,7 +71,7 @@ export default function Page() {
           </div>
 
           <div className="relative mx-auto w-full object-cover rounded-lg overflow-hidden min-h-100 hover:scale-105 transition-all duration-300 cursor-pointer">
-            <Image src={it.img} alt={it.title} fill />
+            <Image src={it.img} alt={it.title} fill priority />
           </div>
         </div>
       ))}
