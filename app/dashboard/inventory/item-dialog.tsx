@@ -4,7 +4,6 @@ import FormButton from "@/components/form-button";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
-  DialogClose,
   DialogContent,
   DialogHeader,
   DialogTitle,
@@ -28,6 +27,22 @@ export const ItemDialog = ({
   item?: Item;
 }) => {
   const [open, setOpen] = useState(false);
+  const [slug, setSlug] = useState(item?.slug || "");
+
+  const generateSlug = (title: string) => {
+    return title
+      .toLowerCase()
+      .trim()
+      .replace(/[^\w\s-]/g, "")
+      .replace(/\s+/g, "-")
+      .replace(/-+/g, "-")
+      .replace(/^-+|-+$/g, "");
+  };
+
+  const handleTitleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const newSlug = generateSlug(e.target.value);
+    setSlug(newSlug);
+  };
 
   const handleAdding = async (e: FormData) => {
     try {
@@ -82,13 +97,15 @@ export const ItemDialog = ({
               id="item-title"
               type="text"
               placeholder="Item's Title"
+              onChange={handleTitleChange}
               required
             />
           </Field>
           <Field>
             <FieldLabel htmlFor="item-slug">Slug</FieldLabel>
             <Input
-              defaultValue={item?.slug}
+              value={slug}
+              onChange={(e) => setSlug(e.target.value)}
               name="slug"
               id="item-slug"
               type="text"
@@ -106,16 +123,21 @@ export const ItemDialog = ({
               placeholder="Item's Description"
             />
           </Field>
-          <Field>
-            <FieldLabel htmlFor="item-quantity">Quantity</FieldLabel>
-            <Input
-              defaultValue={item?.count}
-              name="count"
-              id="item-quantity"
-              type="text"
-              placeholder="Item's Quantity"
-            />
-          </Field>
+          {type === "Add" && (
+            <Field>
+              <FieldLabel htmlFor="item-quantity">
+                Initial Quantity (Optional)
+              </FieldLabel>
+              <Input
+                defaultValue="0"
+                name="count"
+                id="item-quantity"
+                type="number"
+                min="0"
+                placeholder="Starting stock quantity"
+              />
+            </Field>
+          )}
 
           <FormButton className="mt-4" title={`${type} Item`} />
         </form>

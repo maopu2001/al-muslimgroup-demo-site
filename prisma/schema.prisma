@@ -18,8 +18,9 @@ model User {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  updatedItems Item[]
-  complaints   Complaint[]
+  updatedItems          Item[]
+  complaints            Complaint[]
+  inventoryTransactions InventoryTransaction[]
 
   emailVerified Boolean   @default(false)
   image         String?
@@ -38,7 +39,26 @@ model Item {
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 
-  updatedBy User[]
+  updatedBy    User[]
+  transactions InventoryTransaction[]
+}
+
+model InventoryTransaction {
+  id              String   @id @default(cuid())
+  itemId          String
+  item            Item     @relation(fields: [itemId], references: [id], onDelete: Cascade)
+  userId          String
+  user            User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  actionType      String // RESTOCK, DISTRIBUTION, ADJUSTMENT, INITIAL_CREATE
+  quantityChanged Int // Positive for adding, negative for removing
+  snapshotCount   Int // Stock count after this transaction
+  sourceOrDest    String? // Who provided it or who received it
+  notes           String? // Additional notes about the transaction
+  createdAt       DateTime @default(now())
+
+  @@index([itemId])
+  @@index([userId])
+  @@map("inventory_transaction")
 }
 
 model Complaint {
