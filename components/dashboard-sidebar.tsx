@@ -14,10 +14,16 @@ import { toast } from "sonner";
 import { Spinner } from "@/components/ui/spinner";
 import Link from "next/link";
 
-const linkItems = [
+const adminLinkItems = [
   { href: "/dashboard", label: "Dashboard" },
+  { href: "/dashboard/user-control", label: "User Control" },
   { href: "/dashboard/inventory", label: "Inventory" },
   { href: "/dashboard/complains", label: "Complains" },
+  { href: "/dashboard/create-complain", label: "Create Complain" },
+];
+
+const userLinkItems = [
+  { href: "/dashboard/create-complain", label: "Create Complain" },
 ];
 
 export default function DashboardSidebar() {
@@ -54,7 +60,7 @@ export default function DashboardSidebar() {
   };
 
   return (
-    <nav className="absolute bg-accent-foreground border-r w-80 h-full pt-14 px-2 pb-12">
+    <nav className="fixed bg-accent-foreground border-r w-80 h-full pt-14 px-2 pb-12">
       {/* Profile Top Section */}
       <div className="flex flex-col justify-center items-center h-35 border rounded-lg">
         {(isPending && <Spinner className="size-10" />) || (
@@ -103,15 +109,25 @@ export default function DashboardSidebar() {
 
       {/* Option */}
       <div className="flex flex-col gap-2 mt-2">
-        {linkItems.map((item) => (
-          <Link
-            className="border rounded-lg p-2 font-semibold hover:bg-primary/30"
-            key={item.href}
-            href={item.href}
-          >
-            {item.label}
-          </Link>
-        ))}
+        {(session?.user as any)?.type === "user"
+          ? userLinkItems.map((item) => (
+              <Link
+                className="border rounded-lg p-2 font-semibold hover:bg-primary/30"
+                key={item.href}
+                href={item.href}
+              >
+                {item.label}
+              </Link>
+            ))
+          : adminLinkItems.map((item) => (
+              <Link
+                className="border rounded-lg p-2 font-semibold hover:bg-primary/30"
+                key={item.href}
+                href={item.href}
+              >
+                {item.label}
+              </Link>
+            ))}
       </div>
     </nav>
   );

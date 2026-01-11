@@ -2,7 +2,8 @@ import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 import { auth } from "./lib/auth";
 
-const protectedRoutes = ["/dashboard", "/admin"];
+const protectedRoutes = ["/dashboard"];
+const protectedUserRoutes = ["/dashboard/create-complain"];
 const authRoutes = ["/signin", "/signup"];
 
 export async function proxy(request: NextRequest) {
@@ -19,8 +20,18 @@ export async function proxy(request: NextRequest) {
     request.nextUrl.pathname.startsWith(route)
   );
 
-  if (isAuthRoute && session)
+  if (isAuthRoute && session?.user.type === "admin")
     return NextResponse.redirect(new URL("/dashboard", request.url));
+
+  const isProtectedUserRoute = protectedUserRoutes.some((route) =>
+    request.nextUrl.pathname.startsWith(route)
+  );
+
+  if (!isProtectedUserRoute && session?.user.type === "user") {
+    return NextResponse.redirect(
+      new URL("/dashboard/create-complain", request.url)
+    );
+  }
 
   return NextResponse.next();
 }
